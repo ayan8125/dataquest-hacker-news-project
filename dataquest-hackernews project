@@ -1,0 +1,98 @@
+"""""""""hacker news projects """""""""""""""""
+"""from csv import reader
+open_file = open("hacker_news.csv")
+read = reader(open_file)
+hn = list(read)
+headers = hn[0]
+#print(headers)
+#print(hn[1:5])
+ask_posts = []
+show_posts = []
+others_posts = []
+for i in hn:
+    title = i[1]
+    if title.lower().startswith('ask hn') == True:
+        ask_posts.append(i)
+    elif title.lower().startswith('show hn') == True:
+        show_posts.append(i)
+    else:
+        others_posts.append(i)
+print(ask_posts[:5])
+print(show_posts[:5])
+
+""""""AVERAGES"""""""
+        
+total_ask_comments = 0
+lens = 0
+for i in ask_posts:
+    lens += 1
+    total_ask_comments += int(i[4])
+avg_comments = (total_ask_comments/lens)
+print(total_ask_comments,lens,avg_comments)
+
+total_show_comments = 0
+lens = 0
+for i in show_posts:
+    lens += 1
+    total_show_comments += int(i[4])
+avg_show_comments = (total_show_comments/lens)
+print(total_show_comments,lens,avg_show_comments)
+
+
+
+""""""date and times""""""
+import datetime as dt
+result_list = []
+j = 1
+for i in ask_posts:
+    result = []
+    created = i[6]
+    num = int(i[4])
+    result.append(created)
+    result.append(num)
+    result_list.append(result)
+#print(result_list)
+counts_by_hours = {}
+comments_by_hours = {}
+for i in result_list:
+    d , t = i[0].split(" ")
+    h,m = t.split(':')
+    if h not in counts_by_hours:
+        counts_by_hours[(h)] = 1
+        comments_by_hours[(h)] = i[1]
+    if h in counts_by_hours:
+        counts_by_hours[(h)] += 1
+        comments_by_hours[(h)] += i[1]
+print(counts_by_hours)
+print("comments_by_hours")
+print(comments_by_hours)
+   
+
+        
+    
+avg_hour = []
+for i in comments_by_hours:
+    avg_hour.append([i,(comments_by_hours[i]/counts_by_hours[i])])
+print(avg_hour)
+    
+
+""""sorted array""""
+
+
+swap_avg_by_hour = []
+for i in avg_hour:
+    swap_avg_by_hour.append([i[1],i[0]])
+sorted_swap = sorted(swap_avg_by_hour,reverse=True)
+print(sorted_swap[:5])
+
+
+
+""""""s
+
+
+
+temp = "{} : {:.2f} average comments per post"
+for i in sorted_swap:
+    h = i[1]
+    a = i[0]
+    print(temp.format(h,a))"""
